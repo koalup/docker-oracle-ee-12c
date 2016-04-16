@@ -6,7 +6,7 @@ This repository contains a Dockerfile which builds a Docker image that contains 
 I have intentionally chosen not to make a prebuilt image available on Docker Hub due to licensing conserns. I have also chosen not to automatically download the software or include it in this repository for the same reason. In addition, downloading the software requires OTN credentials, which I did not want to include in the Dockerfile.  
 
 ### How-To: Build
-Download the [Oracle Database 12c Release 1 Enterprise Edition for Linux x86-64](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html) and place the downloaded files in the same directory as the Dockerfile. Specifically you will need to download [File 1](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_1of2.zip) and [File 2](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_2of2.zip). 
+Download [Oracle Database 12c Release 1 Enterprise Edition for Linux x86-64](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html) and place the downloaded files in the same directory as the Dockerfile. Specifically you will need to download [File 1](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_1of2.zip) and [File 2](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_2of2.zip). 
 
 Once the software has been downloaded run the following command to build the image:
 ```
