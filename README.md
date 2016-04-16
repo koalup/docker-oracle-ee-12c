@@ -63,15 +63,15 @@ Docker allows you to overlay volumes on top of a container, which replaces the c
 
 Start with creating a volume container named my_oracle_db_data which will house our the database files. The following command creates a non-running container and copies the contents of /u01/app/oracle/oradata and /u01/app/oracle/fast_recovery_area to a couple of volumes. 
 ```
-docker create \
+docker create --name my_oracle_db_data \
 	-v /u01/app/oracle/oradata \
 	-v /u01/app/oracle/fast_recovery_area \
 	-v /u01/app/oracle/product/12.1.0.2/dbhome_1/dbs \
---name my_oracle_db_data koalup/oracle-ee-12c /bin/true
+koalup/oracle-ee-12c /bin/true
 ```
 Next, run a new container named my_oracle_db and overlay the volumes from our my_oracle_db_data volume container on top of it. 
 ```
-docker run -d -P --volumes-from my_oracle_db_data --name my_oracle_db --shm-size 1g koalup/oracle-ee-12c
+docker run --name my_oracle_db -d -P --volumes-from my_oracle_db_data --shm-size 1g koalup/oracle-ee-12c
 ```
 Since the my_oracle_db_data is not running, you have to run the following to see both the my_oracle_db and my_oracle_db_data containers
 ```
