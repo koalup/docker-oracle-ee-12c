@@ -59,11 +59,15 @@ You can also gain terminal access to the container by:
 docker exec -it my_oracle_db /bin/bash
 ``` 
 ### How-To: Volumes
-Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this with respect to this image is data separation, ie, you can have your database files separate from the container, which allows you to remove and create a new container without losing your data. Another benefit is that the database files appear as normal files on the Docker host, which is helpful for backups. This solution is only partially complete since I haven't figured out a good way to handle files in ORACLE_HOME/dbs, yet.  
+Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this with respect to this image is data separation, ie, you can have your database files separate from the container, which allows you to remove and create a new container without losing your data. Another benefit is that the database files appear as normal files on the Docker host, which is helpful for backups.   
 
 Start with creating a volume container named my_oracle_db_data which will house our the database files. The following command creates a non-running container and copies the contents of /u01/app/oracle/oradata and /u01/app/oracle/fast_recovery_area to a couple of volumes. 
 ```
-docker create -v /u01/app/oracle/oradata -v /u01/app/oracle/fast_recovery_area --name my_oracle_db_data koalup/oracle-ee-12c /bin/true
+docker create \
+	-v /u01/app/oracle/oradata \
+	-v /u01/app/oracle/fast_recovery_area \
+	-v /u01/app/oracle/product/12.1.0.2/dbhome_1/dbs \
+--name my_oracle_db_data koalup/oracle-ee-12c /bin/true
 ```
 Next, run a new container named my_oracle_db and overlay the volumes from our my_oracle_db_data volume container on top of it. 
 ```
