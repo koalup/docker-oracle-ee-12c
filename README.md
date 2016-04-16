@@ -82,6 +82,6 @@ docker run -d -P --volumes-from my_oracle_db_data --name my_oracle_db --shm-size
 ```
 Removing the my_oracle_db container does not remove the contents of the my_oracle_db_data container. When the my_oracle_db container is recreated, the volumes from the my_oracle_db_data container are overlayed on top of it again. 
 
-**BIG FAT WARNING** Do not run more than one container with the same volume container as it will most certainly cause data corruption because they will all try to write to the same database files as the same time, which is not good unless your running RAC. 
+**BIG FAT WARNING:** Do not run more than one container that uses the same volume container as it will most certainly cause data corruption because they will all try to write to the same database files as the same time, which is not good (unless you're running RAC). 
 
 Have fun and please post any issues in the issues section. 
