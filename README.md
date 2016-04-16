@@ -1,10 +1,10 @@
 docker-oracle-ee-12c
 ============================
-## Oracle 12c Enterprise Edition - Dockerfile
-This repository contains a Dockerfile to build a Docker image of an Oracle container database with one pluggable database running Oracle Database 12c Enterprise Edition. I have chosen not to make a prebuilt image available on Docker Hub due to licensing issues. I have also chosen not to automatically download the software or include it in this repository for the same reasons and because downloading the software requires OTN credentials, which I did not want to include in the Dockerfile.  
+## Oracle 12cR1 Enterprise Edition - Dockerfile
+This repository contains a Dockerfile which can be used to build a Docker image that contains one Oracle 12c Release 1 Enterprise Edition container database with one pluggable database running on Oracle Enterprise Linux 7. I have chosen not to make a prebuilt image available on Docker Hub due to licensing issues. I have also chosen not to automatically download the software or include it in this repository for the same reasons and because downloading the software requires OTN credentials, which I did not want to include in the Dockerfile.  
 
 ### How-To: Build
-Download the Oracle Database 12c Release 1 for Linux x86-64 software from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html and place the downloaded files in the same directory as the Dockerfile. Specifically you will need to download [File 1](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_1of2.zip) and [File 2](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_2of2.zip). 
+Download the Oracle Database 12c Release 1 Enterprise Edition for Linux x86-64 software from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html and place the downloaded files in the same directory as the Dockerfile. Specifically you will need to download [File 1](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_1of2.zip) and [File 2](http://download.oracle.com/otn/linux/oracle12c/121020/linuxamd64_12102_database_2of2.zip). 
 
 Once the software has been downloaded run the following command to build the image:
 ```
