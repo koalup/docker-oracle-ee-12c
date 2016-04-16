@@ -1,6 +1,6 @@
 docker-oracle-ee-12c
 ============================
-## Oracle 12cR1 Enterprise Edition - Dockerfile
+## Oracle 12c Release 1 (12cR1) Enterprise Edition - Dockerfile
 This repository contains a Dockerfile which builds a Docker image that contains one Oracle 12c Release 1 Enterprise Edition container database (CDB) with one pluggable database (PDB) running on Oracle Enterprise Linux 7. 
 
 I have intentionally chosen not to make a prebuilt image available on Docker Hub due to licensing conserns. I have also chosen not to automatically download the software or include it in this repository for the same reason. In addition, downloading the software requires OTN credentials, which I did not want to include in the Dockerfile.  
@@ -87,6 +87,6 @@ docker run -d -P --volumes-from my_oracle_db_data --name my_oracle_db --shm-size
 ```
 Removing the my_oracle_db container does not remove the contents of the my_oracle_db_data container. When the my_oracle_db container is recreated, the volumes from the my_oracle_db_data container are overlayed on top of it again. 
 
-**BIG FAT WARNING:** Do not run more than one active container that uses the same volumes as it will most certainly cause data corruption because they will all try to write to the same database files as the same time, which is not good (unless you're running RAC). 
+**BIG FAT WARNING:** Do not run more than one active container that uses the same volumes as it will most certainly cause data corruption because they will all try to write to the same database files at the same time, which is not good (unless you're running RAC). 
 
 Have fun and please post any issues in the issues section. 
