@@ -59,9 +59,9 @@ You can also gain terminal access to the container by:
 docker exec -it my_oracle_db /bin/bash
 ``` 
 ### How-To: Volumes
-Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this with respect to this image is data separation, ie, you can have your database files separate from the container, which allows you to remove and create a new container without losing your data. Another benefit is that the database files appear as normal files on the Docker host, which is helpful for backups.   
+Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this is data separation, ie, you can have your database files separate from the container, which allows you to remove and create containers without losing your data. Another benefit is that the volume files appear as normal files on the Docker host, which is helpful for backups.   
 
-Start with creating a volume container named my_oracle_db_data which will house our the database files. The following command creates a non-running container and copies the contents of /u01/app/oracle/oradata and /u01/app/oracle/fast_recovery_area to a couple of volumes. 
+Start with creating an inactive volume container named my_oracle_db_data which will house the database files. The following command creates an inactive container and copies the contents of /u01/app/oracle/oradata, /u01/app/oracle/fast_recovery_area, and /u01/app/oracle/product/12.1.0.2/dbhome_1/db to Docker volumes. 
 ```
 docker create --name my_oracle_db_data \
 	-v /u01/app/oracle/oradata \
@@ -69,15 +69,15 @@ docker create --name my_oracle_db_data \
 	-v /u01/app/oracle/product/12.1.0.2/dbhome_1/dbs \
 koalup/oracle-ee-12c /bin/true
 ```
-Next, run a new container named my_oracle_db and overlay the volumes from our my_oracle_db_data volume container on top of it. 
+Next, create a new active container named my_oracle_db and overlay the volumes from the inactive my_oracle_db_data container. 
 ```
 docker run --name my_oracle_db -d -P --volumes-from my_oracle_db_data --shm-size 1g koalup/oracle-ee-12c
 ```
-Since the my_oracle_db_data is not running, you have to run the following to see both the my_oracle_db and my_oracle_db_data containers
+Since the my_oracle_db_data is inactive, you have to run the following to see both the my_oracle_db and my_oracle_db_data containers
 ```
 docker ps -a
 ```
-Lets say that you want to make a change to the the my_oracle_db container, say increase the shm-size. Docker doesn't yet allow you to modify an existing container (unless you edit some obscure json file and restart the Docker daemon) so you'll have to remove and recreate it. To remove:
+Suppose for example that you want to make a change to the my_oracle_db container, like increasing the shm-size from 1g to 2g. Docker doesn't yet allow you to modify an existing container (unless you edit some obscure json file and restart the Docker daemon) so you'll have to remove and recreate it. To remove:
 ```
 docker rm -f my_oracle_db
 ```
