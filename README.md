@@ -75,8 +75,7 @@ docker ps -a
 ```
 Lets say that you want to make a change to the the my_oracle_db container, say increase the shm-size. Docker doesn't yet allow you to modify an existing container (unless you edit some obscure json file and restart the Docker daemon) so you'll have to remove and recreate it. To remove:
 ```
-docker stop my_oracle_db
-docker rm my_oracle_db
+docker rm -f my_oracle_db
 ```
 To recreate
 ```
