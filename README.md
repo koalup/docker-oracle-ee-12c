@@ -12,7 +12,7 @@ docker build -t koalup/oracle-ee-12c --shm-size 1g .
 ```
 The build process can take a while to complete since it has to install Oracle and create a container database with one pluggable database, however, once the build is complete, you will be able to spawn many containers relatively quickly. The image will contain an Oracle instance and CDB named ORCL with one PDB named PDB1. Oracle DBEXPRESS will also be enabled for both the CDB and PDB. 
 
-By default, the instance memory footprint (memory_target) is configured to be 1024m. You can override that by specyfying the `totalMemory` build-arg. For example:
+By default, the instance memory footprint (memory_target) is configured to be 1024m. You can override that by specifying the `totalMemory` build-arg. For example:
 ```
 docker build -t koalup/oracle-ee-12c --shm-size 2g --build-arg totalMemory=2048 .
 ```
@@ -56,5 +56,32 @@ You can also gain terminal access to the container by:
 ```
 docker exec -it my_oracle_db /bin/bash
 ``` 
+### How-To: Volumes
+Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this with respect to this image is data separation, ie, you can have your database files separate from the container, which allows you to remove and create a new container without losing your data. Another benefit is that the database files appear as normal files on the Docker host, which is helpful for backups. This solution is only partially complete since I haven't figured out a good way to handle files in ORACLE_HOME/dbs, yet.  
+
+Start with creating a volume container named my_oracle_db_data which will house our the database files. The following command creates a non-running container and copies the contents of /u01/app/oracle/oradata and /u01/app/oracle/fast_recovery_area to a couple of volumes. 
+```
+docker create -v /u01/app/oracle/oradata -v /u01/app/oracle/fast_recovery_area --name my_oracle_db_data koalup/oracle-ee-12c /bin/true
+```
+Next, run a new container named my_oracle_db and overlay the volumes from our my_oracle_db_data volume container on top of it. 
+```
+docker run -d -P --volumes-from my_oracle_db_data --name my_oracle_db --shm-size 1g koalup/oracle-ee-12c
+```
+Since the my_oracle_db_data is not running, you have to run the following to see both the my_oracle_db and my_oracle_db_data containers
+```
+docker ps -a
+```
+Lets say that you want to make a change to the the my_oracle_db container, say increase the shm-size. Docker doesn't yet allow you to modify an existing container (unless you edit some obscure json file and restart the Docker daemon) so you'll have to remove and recreate it. To remove:
+```
+docker stop my_oracle_db
+docker rm my_oracle_db
+```
+To recreate
+```
+docker run -d -P --volumes-from my_oracle_db_data --name my_oracle_db --shm-size 2g koalup/oracle-ee-12c
+```
+Removing the my_oracle_db container does not remove the contents of the my_oracle_db_data container. When the my_oracle_db container is recreated, the volumes from the my_oracle_db_data container are overlayed on top of it again. 
+
+**BIG FAT WARNING** Do not run more than one container with the same volume container as it will most certainly cause data corruption because they will all try to write to the same database files as the same time, which is not good unless your running RAC. 
 
 Have fun and please post any issues in the issues section. 
