@@ -14,13 +14,20 @@ docker build -t koalup/oracle-ee-12c --shm-size 1g .
 ```
 The build process can take a while to complete since it has to install Oracle and create a container database with one pluggable database, however, once the build is complete, you will be able to spawn many containers relatively quickly. The image will contain an Oracle instance and CDB named ORCL with one PDB named PDB1. Oracle DBEXPRESS will also be enabled for both the CDB and PDB. 
 
-By default, the instance memory footprint (memory_target) is configured to be 1024m. You can override that by specifying the `totalMemory` build-arg. For example:
+By default, the instance memory footprint (memory_target) is configured to be 1024m. You can override that by specifying the `totalMemory` build argument. For example:
 ```
 docker build -t koalup/oracle-ee-12c --shm-size 2g --build-arg totalMemory=2048 .
 ```
-Make sure you adjust `--shm-size` accordingly otherwise the instance won't start. Other build-args are:
-* `characterSet` - Sets the database character set. Default is AL32UTF8
-* `db_recovery_file_dest_size` - Specifies the recovery area size in bytes. Default is 8589934592 (8 GB)
+Make sure you adjust `--shm-size` accordingly otherwise the instance won't start. The available build arguments are:
+
+Arg|Values|Default|Description
+---|---|---|---
+totalMemory|\<number\>|1024|Total instance memory in Mb
+characterSet|\<string\>|AL32UTF8|Database character set
+db_recovery_file_dest_size|\<number\>|8589934592|Recovery area size in bytes
+log_mode|archivelog\|noarchivelog|noarchivelog|Log mode of the database
+flashback_on|yes\|no|no|Enable flashback database
+force_logging|yes\|no|no|Enable force logging
 
 ### How-To: Run
 Once the image has been built, you can run it in a container by executing the following:
