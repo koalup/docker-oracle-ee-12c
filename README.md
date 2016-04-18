@@ -14,7 +14,7 @@ docker build -t koalup/oracle-ee-12c --shm-size 1g .
 ```
 The build process can take a while to complete since it has to install Oracle and create a container database with one pluggable database, however, once the build is complete, you will be able to spawn many containers relatively quickly. The image will contain an Oracle instance and CDB named ORCL with one PDB named PDB1. Oracle DBEXPRESS will also be enabled for both the CDB and PDB. 
 
-By default, the instance memory footprint (memory_target) is configured to be 1024m. You can override that by specifying the `totalMemory` build argument. For example:
+By default, the instance memory footprint (memory_target) is configured to be 1024m. You can override that by specifying the `totalMemory` build argument using the `--build-arg` option. For example:
 ```
 docker build -t koalup/oracle-ee-12c --shm-size 2g --build-arg totalMemory=2048 .
 ```
