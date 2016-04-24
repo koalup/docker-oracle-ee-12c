@@ -28,6 +28,9 @@ db_recovery_file_dest_size|\<number\>|8589934592|Recovery area size in bytes
 log_mode|archivelog\|noarchivelog|noarchivelog|Log mode of the database
 flashback_on|yes\|no|no|Enable flashback database
 force_logging|yes\|no|no|Enable force logging
+http_proxy|\<string\>| |Proxy setting for yum
+https_proxy|\<string\>| |Proxy setting for yum
+no_proxy|\<string\>| |Proxy setting for yum
 
 ### How-To: Run
 Once the image has been built, you can run it in a container by executing the following:
