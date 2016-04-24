@@ -12,11 +12,14 @@ ARG log_mode=noarchivelog
 ARG flashback_on=no
 ARG force_logging=no
 
+ENV http_proxy=${http_proxy:-""} https_proxy=${https_proxy:-""} no_proxy=${no_proxy:-""}
+
 # Package oracle-rdbms-server-12cR1-preinstall creates /etc/security/limits.d/oracle. 
 # Have to comment out oracle hard memlock because it prevents su'ing to oracle.
 
 RUN 	yum -y update && \
 	yum -y install oracle-rdbms-server-12cR1-preinstall unzip && \
+	yum clean all && \
 	sed -i 's/^oracle.*hard.*memlock/# oracle   hard   memlock/' /etc/security/limits.d/oracle*
 
 COPY 	*.zip /tmp/
