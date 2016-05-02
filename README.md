@@ -1,7 +1,7 @@
 docker-oracle-ee-12c
 ============================
 ## Oracle 12c Release 1 (12cR1) Enterprise Edition - Dockerfile
-This repository contains a Dockerfile which builds a Docker image that contains one Oracle 12c Release 1 Enterprise Edition container database (CDB) running on Oracle Enterprise Linux 7. 
+This repository contains a Dockerfile which builds a Docker image that has one Oracle 12c Release 1 Enterprise Edition container database (CDB) running on Oracle Enterprise Linux 7. 
 
 I have intentionally chosen not to make a prebuilt image available on Docker Hub due to licensing conserns. I have also chosen not to automatically download the software or include it in this repository for the same reason.   
 
@@ -12,13 +12,9 @@ Once the software has been downloaded run the following command to build the ima
 ```
 docker build -t koalup/oracle-ee-12c --shm-size 1g .
 ```
-The build process can take a while to complete since it has to install Oracle and create a container database with one pluggable database, however, once the build is complete, you will be able to spawn many containers relatively quickly. The image will contain an Oracle instance and CDB named ORCL with one PDB named PDB1. Oracle DBEXPRESS will also be enabled for both the CDB and PDB. 
+The build process can take a while to complete since it has to install Oracle and create a container database, however, once the build is complete, you will be able to spawn containers relatively quickly. The image will contain an Oracle instance and CDB named ORCL. Oracle DBEXPRESS will also be enabled for both the CDB. The instance memory footprint (memory_target) is configured to be 1024m. 
 
-By default, the instance memory footprint (memory_target) is configured to be 1024m. You can override that by specifying the `totalMemory` build argument using the `--build-arg` option. For example:
-```
-docker build -t koalup/oracle-ee-12c --shm-size 2g --build-arg totalMemory=2048 .
-```
-Make sure you adjust `--shm-size` accordingly otherwise the instance won't start. The available build arguments are:
+The available build arguments are:
 
 Arg|Values|Default|Description
 ---|---|---|---
