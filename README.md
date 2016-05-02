@@ -12,13 +12,13 @@ Once the software has been downloaded run the following command to build the ima
 ```
 docker build -t koalup/oracle-ee-12c --shm-size 1g .
 ```
-The build process can take a while to complete since it has to install Oracle and create a container database, however, once the build is complete, you will be able to spawn containers relatively quickly. The image will contain an Oracle instance and CDB named ORCL. Oracle DBEXPRESS will also be enabled for both the CDB. The instance memory footprint (memory_target) is configured to be 1024m. 
+The build process can take a while to complete since it has to install Oracle and create a container database, however, once the build is complete, you will be able to spawn containers relatively quickly. The image will contain an Oracle instance and CDB named ORCL with DBEXPRESS. The instance memory footprint (memory_target) is configured to be 1024m. 
 
 The available build arguments are:
 
 Arg|Values|Default|Description
 ---|---|---|---
-gdbName|\<string\>|orcl|Global database name
+gdbName|\<string\>|orcl|Global database name, ie db_name.db_domain.
 sid|\<string\>|orcl|Oracle SID
 characterSet|\<string\>|AL32UTF8|Database character set
 http_proxy|\<string\>| |Proxy setting for yum
