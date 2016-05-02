@@ -46,7 +46,7 @@ You can use any SQL\*Net client, such as [Oracle SQL Developer](http://www.oracl
 
 SERVICE_NAME|USERNAME|PASSWORD|DESCRIPTION
 ---|---|---|---
-ORCL|SYS|SYS|Container database SYS account
+ORCL|SYS|SYS|Container database SYS account. Must use sysdba option to login as this user.
 ORCL|SYSTEM|SYSTEM|Container database as SYSTEM account
 
 I've found that DBEXPRESS only works with Internet Explorer. Chrome shows the login screen but it returns the error `Security token does not match. You must login again...` after authentication. Haven't tried Forefox so it might be worth a shot. The URL is:
