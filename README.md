@@ -35,7 +35,7 @@ This will create a container called orcl from the image and run it in the backgr
 docker logs -f orcl
 ```
 The exposed ports are:
-* `1521` - The default SQL*Net port
+* `1521` - The SQL*Net port
 * `5500` - The CDB DBEXPRESS port
 
 You will need to determine what external port each of the above ports are mapped to in order to access their services from outside of the container. The port mapping can be seen by running 
