@@ -60,10 +60,15 @@ https://<docker_host>:<5500_port_map>/em
 You can also gain terminal access to the container by:
 ```
 docker exec -it orcl /bin/bash
-``` 
+```
+
 ### How-To: Pluggable Databases
 Once the container database is running, you can create many pluggable databases. Connect to the CDB as SYS and run
-
+```
+create pluggable database mypdb admin user mypdbadmin identified by mypdbadmin roles = (DBA);
+alter pluggable database mypdb open;
+```
+This will create a pluggable database named mypdb with an admin user mypdbadmin that has the DBA role. The SERVICE_NAME of this pluggable database will be mypdb. You can use the same host and SQL*Net port as the CDB to connect to it. You will only need to change the SERVICE_NAME accordingly in your connect string. Please see the [Oracle documentation](https://docs.oracle.com/database/121/SQLRF/statements_6010.htm#SQLRF55686) for additional information. 
 
 ### How-To: Volumes
 Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this is data separation, ie, you can have your database files separate from the container, which allows you to remove and create containers without losing your data. Another benefit is that the volume files appear as normal files on the Docker host, which is helpful for backups.   
