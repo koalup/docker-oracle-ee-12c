@@ -86,7 +86,7 @@ To recreate
 ```
 docker run -d -P --volumes-from orcl_data --name orcl --shm-size 2g koalup/oracle-ee-12c
 ```
-Removing the my_oracle_db container does not remove the contents of the orcl_data container. When the orcl container is recreated, the volumes from the orcl_data container are overlayed on top of it again. 
+Removing the orcl container does not remove the contents of the orcl_data container. When the orcl container is recreated, the volumes from the orcl_data container are overlayed on top of it again. 
 
 **BIG FAT WARNING:** Do not run more than one active container that uses the same volumes as it will most certainly cause data corruption because they will all try to write to the same database files at the same time, which is not good (unless you're running RAC). 
 
