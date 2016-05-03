@@ -62,7 +62,7 @@ docker exec -it orcl /bin/bash
 ### How-To: Volumes
 Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this is data separation, ie, you can have your database files separate from the container, which allows you to remove and create containers without losing your data. Another benefit is that the volume files appear as normal files on the Docker host, which is helpful for backups.   
 
-Start with creating an inactive volume container named orcl_data which will house the database files. The following command creates an inactive container and copies the contents of /u01/app/oracle/oradata, /u01/app/oracle/fast_recovery_area, and /u01/app/oracle/product/12.1.0.2/dbhome_1/db to Docker volumes. 
+Start with creating an inactive volume container named orcl_data which will house the database files. The following command creates an inactive container and copies the contents of /u01/app/oracle/oradata, /u01/app/oracle/fast_recovery_area, and /u01/app/oracle/product/12.1.0.2/dbhome_1/dbs to Docker volumes. 
 ```
 docker create --name orcl_data \
 	-v /u01/app/oracle/oradata \
