@@ -25,6 +25,8 @@ http_proxy|\<string\>| |Proxy setting for yum
 https_proxy|\<string\>| |Proxy setting for yum
 no_proxy|\<string\>| |Proxy setting for yum
 
+Please be aware that changing the gdbName will change the SERVICE_NAME that you'll need to connect to the database accordingly. 
+
 ### How-To: Run
 Once the image has been built, you can run it in a container by executing the following:
 ```
@@ -49,16 +51,20 @@ SERVICE_NAME|USERNAME|PASSWORD|DESCRIPTION
 ORCL|SYS|SYS|Container database SYS account. Must use sysdba option to login as this user.
 ORCL|SYSTEM|SYSTEM|Container database as SYSTEM account
 
-I've found that DBEXPRESS only works with Internet Explorer. Chrome shows the login screen but it returns the error `Security token does not match. You must login again...` after authentication. Haven't tried Forefox so it might be worth a shot. The URL is:
+DBEXPRESS only seems to work with Internet Explorer. Chrome shows the login screen but it returns the error `Security token does not match. You must login again...` after authentication. Haven't tried Forefox so it might be worth a shot. The DBEXPRESS URL is:
 
 ```
-https://<docker_host>:<exposed_port>/em
+https://<docker_host>:<5500_port_map>/em
 ```
 
 You can also gain terminal access to the container by:
 ```
 docker exec -it orcl /bin/bash
 ``` 
+### How-To: Pluggable Databases
+Once the container database is running, you can create many pluggable databases. Connect to the CDB as SYS and run
+
+
 ### How-To: Volumes
 Docker allows you to overlay volumes on top of a container, which replaces the contents of the container with the contents of the volumes. One benefit of this is data separation, ie, you can have your database files separate from the container, which allows you to remove and create containers without losing your data. Another benefit is that the volume files appear as normal files on the Docker host, which is helpful for backups.   
 
