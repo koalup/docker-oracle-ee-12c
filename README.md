@@ -51,7 +51,7 @@ SERVICE_NAME|USERNAME|PASSWORD|DESCRIPTION
 ORCL|SYS|SYS|Container database SYS account. Must use sysdba option to login as this user.
 ORCL|SYSTEM|SYSTEM|Container database as SYSTEM account
 
-DBEXPRESS only seems to work with Internet Explorer. Chrome shows the login screen but it returns the error `Security token does not match. You must login again...` after authentication. Haven't tried Forefox so it might be worth a shot. The DBEXPRESS URL is:
+DBEXPRESS only seems to work with Internet Explorer. Chrome shows the login screen but it returns the error `Security token does not match. You must login again...` after authentication. Haven't tried Firefox so it might be worth a shot. The DBEXPRESS URL is:
 
 ```
 https://<docker_host>:<5500_port_map>/em
