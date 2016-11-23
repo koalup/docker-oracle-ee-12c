@@ -67,6 +67,7 @@ Once the container database is running, you can create many pluggable databases.
 ```
 create pluggable database mypdb admin user mypdbadmin identified by mypdbadmin roles = (DBA);
 alter pluggable database mypdb open;
+alter pluggable database mypdb save state;
 ```
 This will create a pluggable database named mypdb with an admin user mypdbadmin that has the DBA role. The SERVICE_NAME of this pluggable database will be mypdb. You can use the same host and SQL*Net port as the CDB to connect to it. You will only need to change the SERVICE_NAME accordingly in your connect string. Please see the [Oracle documentation](https://docs.oracle.com/database/121/SQLRF/statements_6010.htm#SQLRF55686) for additional information. 
 
